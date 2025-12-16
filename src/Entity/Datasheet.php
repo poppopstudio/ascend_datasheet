@@ -31,7 +31,7 @@ use Drupal\user\EntityOwnerTrait;
  *   handlers = {
  *     "access" = "Drupal\ascend_datasheet\Entity\Handler\DatasheetAccess",
  *     "route_provider" = {
- *       "html" = \Drupal\entity_admin_handlers\PlainBundleEntity\PlainBundleHtmlRouteProvider",
+ *       "html" = "Drupal\entity_admin_handlers\PlainBundleEntity\PlainBundleHtmlRouteProvider",
  *       "revision" = \Drupal\Core\Entity\Routing\RevisionHtmlRouteProvider::class,
  *     },
  *     "form" = {
