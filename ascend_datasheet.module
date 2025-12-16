@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for the Ascend datasheet module.
+ */
+
+use Drupal\ascend_datasheet\Hook\DatasheetHooks;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Hook\LegacyHook;
+use Drupal\Core\Render\Element;
+
+/**
+ * Legacy hook implementation.
+ *
+ * @todo Remove this method when support for Drupal core < 11.1 is dropped.
+ */
+#[LegacyHook]
+function ascend_datasheet_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service(DatasheetHooks::class)->formAlter($form, $form_state, $form_id);
+}
+
+
+/**
+ * These two functions were required in order to add compatibility with
+ *  field_group module. This also necessitated the datasheet.html.twig template.
+ *  https://www.drupal.org/project/field_group/issues/2859858
+ */
+
+function ascend_datasheet_theme($existing, $type, $theme, $path) {
+  return [
+    'datasheet' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+function template_preprocess_datasheet(&$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+
+  // Helpful $content variable for templates.
+  $variables += ['content' => []];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+function ascend_datasheet_gin_content_form_routes(): array {
+  return [
+    // Datasheet entity edit form handled by gin.
+    'entity.datasheet.add_form',
+    'entity.datasheet.edit_form',
+  ];
+}

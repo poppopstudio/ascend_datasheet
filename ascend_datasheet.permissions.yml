@@ -1,0 +1,8 @@
+administer datasheet entities:
+  title: Administer Datasheet entities
+view datasheet revisions:
+  title: 'View datasheet revisions'
+revert datasheet revisions:
+  title: 'Revert datasheet revisions'
+delete datasheet revisions:
+  title: 'Delete datasheet revisions'

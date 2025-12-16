@@ -1,0 +1,13 @@
+{
+    "name": "poppopstudio/ascend_datasheet",
+    "description": "Ascend project datasheet",
+    "type": "drupal-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "NikLP",
+            "homepage": "https://github.com/poppopstudio/ascend_datasheet",
+            "role": "Maintainer"
+        }
+    ]
+}

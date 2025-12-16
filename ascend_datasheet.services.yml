@@ -1,0 +1,5 @@
+services:
+  Drupal\ascend_datasheet\Hook\DatasheetHooks:
+    class: Drupal\ascend_datasheet\Hook\DatasheetHooks
+    autowire: true
+

@@ -1,0 +1,5 @@
+entity.datasheet.admin:
+  title: Datasheet settings
+  description: Create and manage fields, forms, and display settings for datasheets.
+  route_name: entity.datasheet.admin
+  parent: system.admin_structure
