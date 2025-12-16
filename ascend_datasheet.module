@@ -20,6 +20,16 @@ function ascend_datasheet_form_alter(&$form, FormStateInterface $form_state, $fo
   \Drupal::service(DatasheetHooks::class)->formAlter($form, $form_state, $form_id);
 }
 
+/**
+ * Legacy hook implementation.
+ *
+ * @todo Remove this method when support for Drupal core < 11.1 is dropped.
+ */
+#[LegacyHook]
+function ascend_datasheet_entity_bundle_info() {
+  \Drupal::service(DatasheetHooks::class)->entityBundleInfo();
+}
+
 
 /**
  * These two functions were required in order to add compatibility with
