@@ -63,8 +63,9 @@ use Drupal\user\EntityOwnerTrait;
  *   },
  *   field_ui_base_route = "entity.datasheet.field_ui_base",
  *   links = {
- *     "add-form" = "/datasheet/add",
  *     "canonical" = "/datasheet/{datasheet}",
+ *     "add-page" = "/datasheet/add",
+ *     "add-form" = "/datasheet/add/{type}",
  *     "collection" = "/admin/content/datasheet",
  *     "delete-form" = "/datasheet/{datasheet}/delete",
  *     "edit-form" = "/datasheet/{datasheet}/edit",
@@ -92,7 +93,14 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
     $fields['type'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Type'))
       ->setDescription(t('The bundle of the entity.'))
-      ->setRequired(TRUE);
+      ->setRequired(TRUE)
+      ->setReadOnly(TRUE) // Bundle shouldn't be changed after creation.
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -10,
+      ])
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['uid']
       ->setLabel(t('Authored by'))
@@ -223,11 +231,28 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
     // $category_id = $this->get('category')->target_id ?? 'X'; // Probably needs work on the Xs!
     // $school_id = $this->get('school')->target_id ?? 'X';
     // $year = $this->get('year')->value ?? 'X';
-    return "some string";
+
+    $type = $this->bundle();
+    $year = $this->get('year')->value ?? 'X';
+
+    // If it's a school datasheet, include school name
+    if ($type === 'school' && !$this->get('school')->isEmpty()) {
+      $school = $this->get('school')->entity;
+      $school_name = $school ? $school->label() : '[School]';
+      return t('@school (@year)', [
+        '@school' => $school_name,
+        '@year' => $year, // wrong format
+      ]);
+    }
+
+    // For national/local datasheets.
+    return t('@type Datasheet (@year)', [
+      '@type' => ucfirst($type),
+      '@year' => $year, // wrong format
+    ]);
   }
 
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
   }
-
 }

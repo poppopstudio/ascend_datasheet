@@ -1,6 +1,6 @@
 entity.datasheet.add:
   title: Add datasheet
-  route_name: entity.datasheet.add_form
+  route_name: entity.datasheet.add_page
   weight: 15
   appears_on:
     - entity.datasheet.collection
