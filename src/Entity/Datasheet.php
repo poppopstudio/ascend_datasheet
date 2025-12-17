@@ -18,8 +18,8 @@ use Drupal\user\EntityOwnerTrait;
  *   id = "datasheet",
  *   label = @Translation("Datasheet"),
  *   label_collection = @Translation("Datasheets"),
- *   label_singular = @Translation("datasheet"),
- *   label_plural = @Translation("datasheets"),
+ *   label_singular = @Translation("Datasheet"),
+ *   label_plural = @Translation("Datasheets"),
  *   label_count = @PluralTranslation(
  *     singular = "@count datasheet",
  *     plural = "@count datasheets",
@@ -89,15 +89,6 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields += static::ownerBaseFieldDefinitions($entity_type);
 
-    $fields['title'] = BaseFieldDefinition::create('string')
-      ->setLabel(t("Datasheet name"))
-      ->setRequired(TRUE)
-      ->setRevisionable(TRUE)
-      ->setSetting('max_length', 100)
-      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => -5])
-      ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayConfigurable('form', TRUE);
-
     $fields['uid']
       ->setLabel(t('Authored by'))
       ->setDescription(t('The username of the content author.'))
@@ -166,90 +157,72 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
       ->setDisplayConfigurable('form', TRUE)
       ->setComputed(TRUE);
 
+    // Might not want this here as school is not present on nat/loc records.
+    
+    $fields['school'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t("School"))
+      ->setDescription(t("The datasheet's school."))
+      ->setRevisionable(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      // ->setRequired(TRUE)
+      ->setCardinality(1)
+      // ->setDefaultValueCallback('Drupal\ascend_audit\Entity\Audit::getDefaultSchool')
+      ->setSetting('target_type', 'school')
+      ->setSetting('handler', 'default:school')
+      ->setDisplayOptions('view', array(
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => 0,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 0,
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'size' => 60,
+          'placeholder' => '',
+        ),
+      ));
+
+    $fields['year'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t("Year"))
+      ->setDescription(t('Datasheet year in YY format (e.g. 24 for 2024/25).'))
+      ->setRevisionable(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE)
+      ->setCardinality(1)
+      ->setDefaultValueCallback('Drupal\ascend_audit\Entity\Audit::getDefaultYear')
+      ->setSettings([
+        'max_length' => 2,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', array(
+        'label' => 'inline',
+        'type' => 'audit_year_formatter',
+        'weight' => 0,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'number',
+        'weight' => 0,
+      ));
+
     return $fields;
+  }
+
+  /**
+   * Use a computed label instead of storing titles.
+   */
+  public function label() {
+    // $category_id = $this->get('category')->target_id ?? 'X'; // Probably needs work on the Xs!
+    // $school_id = $this->get('school')->target_id ?? 'X';
+    // $year = $this->get('year')->value ?? 'X';
+    return "some string";
   }
 
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
-
-    // Update auditor's working datasheet after save.
-    $this->updateAuditorWorkingDatasheet();
   }
 
-  /**
-   * Update the associated auditor's working datasheet if not set.
-   */
-  protected function updateAuditorWorkingDatasheet() {
-
-    // Updates auditors assigned to this datasheet IF they have a blank/no profile.
-    $auditor_ids = array_column(
-      $this->get('ascend_sch_auditor')->getValue(),
-      'target_id'
-    );
-
-    if (empty($auditor_ids)) {
-      return;
-    }
-
-    foreach ($auditor_ids as $auditor_id) {
-      // Attempt to load this auditor's profile(s).
-      $auditor_profiles = \Drupal::entityTypeManager()
-        ->getStorage('profile')
-        ->loadByProperties([
-          'uid' => $auditor_id,
-          'type' => 'auditor'
-        ]);
-
-      // If the auditor doesn't have a profile we can safely create one.
-      if (empty($auditor_profiles)) {
-
-        $auditor_profile = Profile::create([
-          'type' => 'auditor',
-          'uid' => $auditor_id,
-          'ascend_p_datasheet' => ['target_id' => $this->id()]
-        ]);
-
-        $auditor_profile->setDefault(TRUE);
-        $auditor_profile->save();
-
-        // Show on-screen message informing user what's been done.
-        $auditor_name = \Drupal::entityTypeManager()->getStorage('user')->load($auditor_id)->getDisplayName();
-
-        $message = 'Created a profile for auditor @auditor_name (id: @auditor_id) and set their working datasheet to @datasheet_name (id: @datasheet_id).';
-        $context = [
-          '@datasheet_name' => $this->label(),
-          '@datasheet_id' => $this->id(),
-          '@auditor_id' => $auditor_id,
-          '@auditor_name' => $auditor_name
-        ];
-        \Drupal::messenger()->addMessage(t($message, $context));
-
-        // If condition was met, we don't need to do anything lower than here.
-        continue;
-      }
-
-      // Number of auditor's profiles should be 1 here, get the 'first' profile.
-      $profile = reset($auditor_profiles);
-
-      // If the auditor's profile has no working datasheet set (datasheet ID is 0).
-      if ($profile->ascend_p_datasheet->target_id == 0) {
-
-        // Set the datasheet ID on the profile and save it.
-        $profile->set('ascend_p_datasheet', ['target_id' => $this->id()]);
-        $profile->save();
-
-        // Show on-screen message informing user what's been done.
-        $auditor_name = \Drupal::entityTypeManager()->getStorage('user')->load($auditor_id)->getDisplayName();
-
-        $message = 'Updated profile for auditor @auditor_name (id: @auditor_id), set their working datasheet to @datasheet_name (id: @datasheet_id).';
-        $context = [
-          '@datasheet_name' => $this->label(),
-          '@datasheet_id' => $this->id(),
-          '@auditor_id' => $auditor_id,
-          '@auditor_name' => $auditor_name
-        ];
-        \Drupal::messenger()->addMessage(t($message, $context));
-      }
-    }
-  }
 }

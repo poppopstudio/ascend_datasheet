@@ -3,8 +3,7 @@ type: module
 package: Ascend
 description: 'Ascend datasheet'
 core_version_requirement: ^10 || ^11
-# dependencies:
-  # Other contrib modules assumed in ascend_audit for brevity.
+dependencies:
+  - ascend_audit:ascend_audit
 
 config_devel:
-
