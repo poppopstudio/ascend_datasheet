@@ -25,9 +25,33 @@ function ascend_datasheet_form_alter(&$form, FormStateInterface $form_state, $fo
  *
  * @todo Remove this method when support for Drupal core < 11.1 is dropped.
  */
-#[LegacyHook]
+// #[LegacyHook]
+// function ascend_datasheet_entity_bundle_info() {
+//   \Drupal::service(DatasheetHooks::class)->entityBundleInfo();
+// }
+
+/**
+ * Implements hook_entity_bundle_info().
+ */
 function ascend_datasheet_entity_bundle_info() {
-  \Drupal::service(DatasheetHooks::class)->entityBundleInfo();
+  $bundles = [];
+
+  $bundles['datasheet'] = [
+    'national' => [
+      'label' => t('National'),
+      'description' => t('Represents a National datasheet.')
+    ],
+    'local' => [
+      'label' => t('Local'),
+      'description' => t('Represents a Local datasheet.')
+    ],
+    'school' => [
+      'label' => t('School'),
+      'description' => t('Represents a School datasheet.')
+    ],
+  ];
+
+  return $bundles;
 }
 
 

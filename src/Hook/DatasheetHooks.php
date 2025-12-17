@@ -21,24 +21,24 @@ class DatasheetHooks {
   /**
    * Implements hook_entity_bundle_info().
    */
-  #[Hook('entity_bundle_info')]
-  public function entityBundleInfo() {
-    $bundles['datasheet'] = [
-      'national' => [
-        'label' => t('National'),
-        'description' => t('Represents a National datasheet.')
-      ],
-      'local' => [
-        'label' => t('Local'),
-        'description' => t('Represents a Local datasheet.')
-      ],
-      'school' => [
-        'label' => t('School'),
-        'description' => t('Represents a School datasheet.')
-      ],
-    ];
+  // #[Hook('entity_bundle_info')]
+  // public function entityBundleInfo() {
+  //   $bundles['datasheet'] = [
+  //     'national' => [
+  //       'label' => t('National'),
+  //       'description' => t('Represents a National datasheet.')
+  //     ],
+  //     'local' => [
+  //       'label' => t('Local'),
+  //       'description' => t('Represents a Local datasheet.')
+  //     ],
+  //     'school' => [
+  //       'label' => t('School'),
+  //       'description' => t('Represents a School datasheet.')
+  //     ],
+  //   ];
 
-    return $bundles;
-  }
+  //   return $bundles;
+  // }
 
 }

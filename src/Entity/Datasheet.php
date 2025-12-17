@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\profile\Entity\Profile;
 use Drupal\user\EntityOwnerTrait;
 
 /**
@@ -55,6 +54,7 @@ use Drupal\user\EntityOwnerTrait;
  *     "owner" = "uid",
  *     "uid" = "uid",
  *     "published" = "status",
+ *     "bundle" = "type",
  *   },
  *   revision_metadata_keys = {
  *     "revision_user" = "revision_uid",
@@ -88,6 +88,11 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields += static::ownerBaseFieldDefinitions($entity_type);
+
+    $fields['type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Type'))
+      ->setDescription(t('The bundle of the entity.'))
+      ->setRequired(TRUE);
 
     $fields['uid']
       ->setLabel(t('Authored by'))
@@ -158,7 +163,7 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
       ->setComputed(TRUE);
 
     // Might not want this here as school is not present on nat/loc records.
-    
+
     $fields['school'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t("School"))
       ->setDescription(t("The datasheet's school."))

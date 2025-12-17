@@ -1,5 +1,3 @@
 # Ascend datasheet
 
-TODO: write some documentation.
-
-## Requirements
+Recipe/module to enable datasheet functionality for Ascend.
