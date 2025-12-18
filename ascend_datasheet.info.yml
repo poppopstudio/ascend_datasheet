@@ -43,3 +43,4 @@ config_devel:
   - field.storage.datasheet.ascend_ds_sen
   - field.storage.datasheet.ascend_ds_slcn
   - field.storage.datasheet.ascend_ds_spld
+  - views.view.datasheets_content
