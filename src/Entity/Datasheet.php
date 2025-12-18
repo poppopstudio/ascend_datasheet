@@ -222,14 +222,10 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
    * Use a computed label instead of storing titles.
    */
   public function label() {
-    // $category_id = $this->get('category')->target_id ?? 'X'; // Probably needs work on the Xs!
-    // $school_id = $this->get('school')->target_id ?? 'X';
-    // $year = $this->get('year')->value ?? 'X';
-
     $type = $this->bundle();
     $year = $this->get('year')->value ?? 'X';
 
-    // If it's a school datasheet, include school name
+    // If it's a school datasheet, include school name.
     if ($type === 'school' && !$this->get('school')->isEmpty()) {
       $school = $this->get('school')->entity;
       $school_name = $school ? $school->label() : '[School]';
