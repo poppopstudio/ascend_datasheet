@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.datasheet.ascend_ds_school
+  module:
+    - ascend_datasheet
+    - epp
+third_party_settings:
+  epp:
+    value: '[current-page:query:sid]'
+    on_update: 0
+id: datasheet.school.ascend_ds_school
+field_name: ascend_ds_school
+entity_type: datasheet
+bundle: school
+label: School
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:school'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

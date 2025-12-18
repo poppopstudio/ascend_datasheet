@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.datasheet.ascend_ds_slcn
+  module:
+    - ascend_datasheet
+id: datasheet.local.ascend_ds_slcn
+field_name: ascend_ds_slcn
+entity_type: datasheet
+bundle: local
+label: SLCN
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0.0
+  max: 100.0
+  prefix: ''
+  suffix: '%'
+field_type: decimal

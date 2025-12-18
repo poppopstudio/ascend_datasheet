@@ -7,3 +7,35 @@ dependencies:
   - ascend_audit:ascend_audit
 
 config_devel:
+  - core.entity_form_display.datasheet.school.default
+  - core.entity_view_display.datasheet.school.default
+  - field.field.datasheet.local.ascend_ds_asd
+  - field.field.datasheet.local.ascend_ds_ehc
+  - field.field.datasheet.local.ascend_ds_mld
+  - field.field.datasheet.local.ascend_ds_semh
+  - field.field.datasheet.local.ascend_ds_sen
+  - field.field.datasheet.local.ascend_ds_slcn
+  - field.field.datasheet.local.ascend_ds_spld
+  - field.field.datasheet.national.ascend_ds_asd
+  - field.field.datasheet.national.ascend_ds_ehc
+  - field.field.datasheet.national.ascend_ds_mld
+  - field.field.datasheet.national.ascend_ds_semh
+  - field.field.datasheet.national.ascend_ds_sen
+  - field.field.datasheet.national.ascend_ds_slcn
+  - field.field.datasheet.national.ascend_ds_spld
+  - field.field.datasheet.school.ascend_ds_asd
+  - field.field.datasheet.school.ascend_ds_ehc
+  - field.field.datasheet.school.ascend_ds_mld
+  - field.field.datasheet.school.ascend_ds_school
+  - field.field.datasheet.school.ascend_ds_semh
+  - field.field.datasheet.school.ascend_ds_sen
+  - field.field.datasheet.school.ascend_ds_slcn
+  - field.field.datasheet.school.ascend_ds_spld
+  - field.storage.datasheet.ascend_ds_asd
+  - field.storage.datasheet.ascend_ds_ehc
+  - field.storage.datasheet.ascend_ds_mld
+  - field.storage.datasheet.ascend_ds_school
+  - field.storage.datasheet.ascend_ds_semh
+  - field.storage.datasheet.ascend_ds_sen
+  - field.storage.datasheet.ascend_ds_slcn
+  - field.storage.datasheet.ascend_ds_spld
