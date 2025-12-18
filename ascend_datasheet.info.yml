@@ -7,6 +7,8 @@ dependencies:
   - ascend_audit:ascend_audit
 
 config_devel:
+  - core.entity_form_display.datasheet.local.default
+  - core.entity_form_display.datasheet.national.default
   - core.entity_form_display.datasheet.school.default
   - core.entity_view_display.datasheet.school.default
   - field.field.datasheet.local.ascend_ds_asd
