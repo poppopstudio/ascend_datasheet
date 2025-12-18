@@ -86,6 +86,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  stage:
+    type: options_buttons
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 9
@@ -95,7 +101,7 @@ content:
     third_party_settings: {  }
   year:
     type: readonly_field_widget
-    weight: 1
+    weight: 0
     region: content
     settings:
       label: inline

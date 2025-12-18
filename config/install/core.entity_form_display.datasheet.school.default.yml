@@ -20,59 +20,62 @@ mode: default
 content:
   ascend_ds_asd:
     type: number
-    weight: 8
+    weight: 9
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_ehc:
     type: number
-    weight: 3
+    weight: 4
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_mld:
     type: number
-    weight: 5
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-  ascend_ds_school:
-    type: entity_reference_autocomplete
-    weight: 0
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  ascend_ds_semh:
-    type: number
     weight: 6
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-  ascend_ds_sen:
-    type: number
-    weight: 2
+  ascend_ds_school:
+    type: readonly_field_widget
+    weight: 0
     region: content
     settings:
-      placeholder: ''
+      label: inline
+      formatter_type: entity_reference_label
+      formatter_settings:
+        entity_reference_label:
+          link: false
+      show_description: false
+      error_validation: false
     third_party_settings: {  }
-  ascend_ds_slcn:
+  ascend_ds_semh:
     type: number
     weight: 7
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
+  ascend_ds_sen:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  ascend_ds_slcn:
+    type: number
+    weight: 8
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   ascend_ds_spld:
     type: number
-    weight: 4
+    weight: 5
     region: content
     settings:
       placeholder: ''
@@ -87,9 +90,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  stage:
+    type: options_buttons
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 10
     region: content
     settings:
       display_label: true

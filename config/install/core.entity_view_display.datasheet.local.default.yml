@@ -2,21 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.datasheet.school.ascend_ds_asd
-    - field.field.datasheet.school.ascend_ds_ehc
-    - field.field.datasheet.school.ascend_ds_mld
-    - field.field.datasheet.school.ascend_ds_school
-    - field.field.datasheet.school.ascend_ds_semh
-    - field.field.datasheet.school.ascend_ds_sen
-    - field.field.datasheet.school.ascend_ds_slcn
-    - field.field.datasheet.school.ascend_ds_spld
+    - field.field.datasheet.local.ascend_ds_asd
+    - field.field.datasheet.local.ascend_ds_ehc
+    - field.field.datasheet.local.ascend_ds_mld
+    - field.field.datasheet.local.ascend_ds_semh
+    - field.field.datasheet.local.ascend_ds_sen
+    - field.field.datasheet.local.ascend_ds_slcn
+    - field.field.datasheet.local.ascend_ds_spld
   module:
     - ascend_audit
     - ascend_datasheet
     - options
-id: datasheet.school.default
+id: datasheet.local.default
 targetEntityType: datasheet
-bundle: school
+bundle: local
 mode: default
 content:
   ascend_ds_asd:
@@ -135,3 +134,4 @@ hidden:
   search_api_excerpt: true
   type: true
   uid: true
+  uuid: true
