@@ -172,7 +172,7 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
 
     $fields['year'] = BaseFieldDefinition::create('integer')
       ->setLabel(t("Year"))
-      ->setDescription(t('Datasheet year in YY format (e.g. 24 for 2024/25).'))
+      ->setDescription(t('Academic year in YY format (e.g. 24 for 2024/25).'))
       ->setRevisionable(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
@@ -192,6 +192,28 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
         'type' => 'number',
         'weight' => 0,
       ));
+
+    $fields['stage'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Stage'))
+      ->setDescription(t('Educational stage'))
+      ->setRevisionable(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE)
+      ->setCardinality(1)
+      ->setSetting('allowed_values', [
+        'primary' => 'Primary',
+        'secondary' => 'Secondary',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_buttons',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'list_default',
+        'weight' => 0,
+      ]);
 
     return $fields;
   }
