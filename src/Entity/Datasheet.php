@@ -41,7 +41,7 @@ use Drupal\user\EntityOwnerTrait;
  *       "revision-revert" = \Drupal\Core\Entity\Form\RevisionRevertForm::class,
  *     },
  *     "list_builder" = "Drupal\ascend_datasheet\Entity\Handler\DatasheetListBuilder",
- *     "views_data" = "Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\ascend_datasheet\Entity\Handler\DatasheetViewsData",
  *     "permission_provider" = "Drupal\entity\EntityPermissionProvider",
  *   },
  *   admin_permission = "administer datasheet entities",
@@ -236,7 +236,7 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
     }
 
     // For national/local datasheets.
-    return t('@type Datasheet (@year)', [
+    return t('@type (@year)', [
       '@type' => ucfirst($type),
       '@year' => $year, // wrong format
     ]);
