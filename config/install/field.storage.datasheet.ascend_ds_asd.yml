@@ -9,7 +9,7 @@ entity_type: datasheet
 type: decimal
 settings:
   precision: 10
-  scale: 3
+  scale: 1
 module: core
 locked: false
 cardinality: 1
