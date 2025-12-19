@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
  * @Constraint(
  *   id = "UniqueDatasheet",
  *   label = @Translation("Unique datasheet", context = "Validation"),
- *   type = "entity"
+ *   type = "entity:datasheet"
  * )
  */
 class UniqueDatasheetConstraint extends Constraint {
