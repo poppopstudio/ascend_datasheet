@@ -61,6 +61,9 @@ use Drupal\user\EntityOwnerTrait;
  *     "revision_created" = "revision_timestamp",
  *     "revision_log_message" = "revision_log"
  *   },
+ *   constraints = {
+ *     "UniqueDatasheet" = {}
+ *   },
  *   field_ui_base_route = "entity.datasheet.field_ui_base",
  *   links = {
  *     "canonical" = "/datasheet/{datasheet}",
