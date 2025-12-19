@@ -353,11 +353,44 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'No datasheets available'
+            value: '<p>No datasheets available</p>'
             format: basic_html
           tokenize: false
       sorts: {  }
-      arguments: {  }
+      arguments:
+        ascend_ds_school_target_id:
+          id: ascend_ds_school_target_id
+          table: datasheet__ascend_ds_school
+          field: ascend_ds_school_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: entity_target_id
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: node
+          default_argument_options: {  }
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
       filters:
         status:
           id: status
@@ -410,13 +443,13 @@ display:
           admin_label: ''
           plugin_id: views_add_button_area
           empty: false
-          tokenize: false
+          tokenize: true
           type: datasheet+school
           render_plugin: ''
           access_plugin: ''
           context: ''
           button_text: 'Add datasheet'
-          query_string: sid=1
+          query_string: 'sid={{ raw_arguments.ascend_ds_school_target_id }}'
           button_classes: ''
           button_attributes: ''
           button_access_denied:
@@ -435,6 +468,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
@@ -455,6 +489,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }

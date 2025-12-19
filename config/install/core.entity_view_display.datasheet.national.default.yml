@@ -31,20 +31,20 @@ third_party_settings:
       weight: 2
       format_type: field_group_table
       format_settings:
-        show_empty_fields: 0
-        label_as_html: 0
-        id: ''
-        classes: ''
         label_visibility: '1'
         desc: ''
         desc_visibility: '2'
         first_column: ''
         second_column: ''
         empty_label_behavior: '1'
+        empty_field_placeholder: ''
+        id: ''
+        classes: ''
+        show_empty_fields: 0
+        label_as_html: 0
         table_row_striping: 0
         always_show_field_label: 0
         always_show_field_value: 0
-        empty_field_placeholder: ''
         hide_table_if_empty: 0
 id: datasheet.national.default
 targetEntityType: datasheet
