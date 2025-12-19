@@ -85,11 +85,11 @@ class UniqueDatasheetConstraintValidator extends ConstraintValidator implements 
 
     // If we found existing datasheets, add a violation.
     if (!empty($existing_datasheets)) {
-      $violation = $type === 'school'
-        ? $constraint->school_item_preexists
-        : $constraint->item_preexists;
-
-      $this->context->addViolation($violation);
+      if ($type === 'school') {
+        $this->context->addViolation($constraint->school_item_preexists, ['%school' => $school_id, '%stage' => $stage, '%year' => $year]);
+      } else {
+        $this->context->addViolation($constraint->item_preexists, ['%type' => $type, '%stage' => $stage, '%year' => $year]);
+      }
     }
   }
 }

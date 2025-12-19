@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
  * @Constraint(
  *   id = "UniqueDatasheet",
  *   label = @Translation("Unique datasheet", context = "Validation"),
- *   type = "entity:datasheet"
+ *   type = "entity"
  * )
  */
 class UniqueDatasheetConstraint extends Constraint {
@@ -18,6 +18,6 @@ class UniqueDatasheetConstraint extends Constraint {
   /**
    * The message that will be shown if the combination is not unique.
    */
-  public $item_preexists = 'A datasheet already exists for this combination of type, stage and year.';
-  public $school_item_preexists = 'A datasheet already exists for this combination of school, stage and year.';
+  public $item_preexists = 'A datasheet already exists for this combination of type, stage and year (%type, %stage, %year).';
+  public $school_item_preexists = 'A datasheet already exists for this combination of school, stage and year (%school, %stage, %year).';
 }
