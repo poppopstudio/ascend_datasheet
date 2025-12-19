@@ -239,21 +239,27 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
       $formatted_year = isset($elements[0]) ? (string) $elements[0]['#markup'] : 'X';
     }
 
+    // Make a single letter denotation of the stage.
+    $stage = $this->get('stage')->value;
+    $letter = ucfirst($stage)[0];
+
     // If it's a school datasheet, include school name.
     if ($type === 'school' && !$this->get('ascend_ds_school')->isEmpty()) {
       $school = $this->get('ascend_ds_school')->entity;
       $school_name = $school ? $school->label() : '[School]';
 
-      return t('@school @year', [
+      return t('@school @year (@stage)', [
         '@school' => $school_name,
         '@year' => $formatted_year,
+        '@stage' => $letter,
       ]);
     }
 
     // For national/local datasheets.
-    return t('@type @year', [
+    return t('@type @year (@stage)', [
       '@type' => ucfirst($type),
       '@year' => $formatted_year,
+      '@stage' => $letter,
     ]);
   }
 
