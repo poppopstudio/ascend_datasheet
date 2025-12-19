@@ -74,7 +74,7 @@ content:
         entity_reference_label:
           link: false
       show_description: false
-      error_validation: false
+      error_validation: true
     third_party_settings: {  }
   ascend_ds_semh:
     type: number
@@ -136,7 +136,7 @@ content:
       formatter_type: audit_year_formatter
       formatter_settings: {  }
       show_description: false
-      error_validation: false
+      error_validation: true
     third_party_settings: {  }
 hidden:
   changed: true
