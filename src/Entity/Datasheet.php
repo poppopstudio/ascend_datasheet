@@ -223,22 +223,37 @@ class Datasheet extends EditorialContentEntityBase implements DatasheetInterface
    */
   public function label() {
     $type = $this->bundle();
-    $year = $this->get('year')->value ?? 'X';
+
+    // Format the year using AuditYearFormatter.
+    $formatted_year = 'X';
+    if (!$this->get('year')->isEmpty()) {
+      $formatter = \Drupal::service('plugin.manager.field.formatter')->createInstance('audit_year_formatter', [
+        'field_definition' => $this->get('year')->getFieldDefinition(),
+        'settings' => [],
+        'label' => '',
+        'view_mode' => '',
+        'third_party_settings' => [],
+      ]);
+
+      $elements = $formatter->viewElements($this->get('year'), 'en');
+      $formatted_year = isset($elements[0]) ? (string) $elements[0]['#markup'] : 'X';
+    }
 
     // If it's a school datasheet, include school name.
-    if ($type === 'school' && !$this->get('school')->isEmpty()) {
-      $school = $this->get('school')->entity;
+    if ($type === 'school' && !$this->get('ascend_ds_school')->isEmpty()) {
+      $school = $this->get('ascend_ds_school')->entity;
       $school_name = $school ? $school->label() : '[School]';
-      return t('@school (@year)', [
+
+      return t('@school @year', [
         '@school' => $school_name,
-        '@year' => $year, // wrong format
+        '@year' => $formatted_year,
       ]);
     }
 
     // For national/local datasheets.
-    return t('@type (@year)', [
+    return t('@type @year', [
       '@type' => ucfirst($type),
-      '@year' => $year, // wrong format
+      '@year' => $formatted_year,
     ]);
   }
 
