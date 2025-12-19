@@ -25,6 +25,16 @@ function ascend_datasheet_form_alter(&$form, FormStateInterface $form_state, $fo
  *
  * @todo Remove this method when support for Drupal core < 11.1 is dropped.
  */
+#[LegacyHook]
+function ascend_datasheet_preprocess_page_title(&$variables) {
+  \Drupal::service(DatasheetHooks::class)->preprocessPageTitle($variables);
+}
+
+/**
+ * Legacy hook implementation.
+ *
+ * @todo Remove this method when support for Drupal core < 11.1 is dropped.
+ */
 // #[LegacyHook]
 // function ascend_datasheet_entity_bundle_info() {
 //   \Drupal::service(DatasheetHooks::class)->entityBundleInfo();

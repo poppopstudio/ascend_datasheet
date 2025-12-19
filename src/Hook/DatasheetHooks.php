@@ -19,6 +19,19 @@ class DatasheetHooks {
   }
 
   /**
+   * Implements hook_preprocess_page_title().
+   */
+  #[Hook('preprocess_page_title')]
+  public function preprocessPageTitle(&$variables) {
+    $route_match = \Drupal::routeMatch();
+    $type = 'datasheet';
+
+    if ($route_match->getRouteName() == "entity.$type.canonical") {
+      $variables['title'] = 'Datasheet: ' . $variables['title'];
+    }
+  }
+
+  /**
    * Implements hook_entity_bundle_info().
    */
   // #[Hook('entity_bundle_info')]
