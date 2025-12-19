@@ -12,7 +12,40 @@ dependencies:
   module:
     - ascend_audit
     - ascend_datasheet
+    - field_group
     - options
+third_party_settings:
+  field_group:
+    group_data:
+      children:
+        - ascend_ds_sen
+        - ascend_ds_ehc
+        - ascend_ds_spld
+        - ascend_ds_mld
+        - ascend_ds_semh
+        - ascend_ds_slcn
+        - ascend_ds_asd
+      label: Data
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: field_group_table
+      format_settings:
+        show_empty_fields: 0
+        label_as_html: 0
+        id: ''
+        classes: ''
+        label_visibility: '1'
+        desc: ''
+        desc_visibility: '2'
+        first_column: ''
+        second_column: ''
+        empty_label_behavior: '1'
+        table_row_striping: 0
+        always_show_field_label: 0
+        always_show_field_value: 0
+        empty_field_placeholder: ''
+        hide_table_if_empty: 0
 id: datasheet.national.default
 targetEntityType: datasheet
 bundle: national
@@ -27,7 +60,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   ascend_ds_ehc:
     type: number_decimal
@@ -38,7 +71,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   ascend_ds_mld:
     type: number_decimal
@@ -49,7 +82,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   ascend_ds_school:
     type: entity_reference_label
@@ -68,7 +101,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   ascend_ds_sen:
     type: number_decimal
@@ -79,7 +112,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   ascend_ds_slcn:
     type: number_decimal
@@ -90,7 +123,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   ascend_ds_spld:
     type: number_decimal
@@ -101,7 +134,7 @@ content:
       scale: 1
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   school:
     type: entity_reference_label
@@ -116,14 +149,14 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   year:
     type: audit_year_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
 hidden:
   changed: true
