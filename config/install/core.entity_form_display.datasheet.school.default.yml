@@ -12,7 +12,31 @@ dependencies:
     - field.field.datasheet.school.ascend_ds_spld
   module:
     - ascend_datasheet
+    - field_group
     - readonly_field_widget
+third_party_settings:
+  field_group:
+    group_data:
+      children:
+        - ascend_ds_sen
+        - ascend_ds_ehc
+        - ascend_ds_spld
+        - ascend_ds_mld
+        - ascend_ds_semh
+        - ascend_ds_slcn
+        - ascend_ds_asd
+      label: Data
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
 id: datasheet.school.default
 targetEntityType: datasheet
 bundle: school
@@ -20,21 +44,21 @@ mode: default
 content:
   ascend_ds_asd:
     type: number
-    weight: 9
+    weight: 10
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_ehc:
     type: number
-    weight: 4
+    weight: 5
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_mld:
     type: number
-    weight: 6
+    weight: 7
     region: content
     settings:
       placeholder: ''
@@ -54,28 +78,28 @@ content:
     third_party_settings: {  }
   ascend_ds_semh:
     type: number
-    weight: 7
+    weight: 8
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_sen:
     type: number
-    weight: 3
+    weight: 4
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_slcn:
     type: number
-    weight: 8
+    weight: 9
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   ascend_ds_spld:
     type: number
-    weight: 5
+    weight: 6
     region: content
     settings:
       placeholder: ''
@@ -98,7 +122,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 11
     region: content
     settings:
       display_label: true
