@@ -33,9 +33,16 @@ class DatasheetForm extends ContentEntityForm {
     //   }
     // }
 
+    // Set form title.
+    if ($this->operation == 'default') {
+      $form['#title'] = $this->t('Add @type datasheet', [
+        '@type' => $datasheet->bundle(),
+      ]);
+    }
+
     if ($this->operation == 'edit') {
-      $form['#title'] = $this->t('<em>Edit @type</em> @title', [
-        '@type' => 'datasheet',
+      $form['#title'] = $this->t('<em>Edit @type datasheet</em> @title', [
+        '@type' => $datasheet->bundle(),
         '@title' => $datasheet->label(),
       ]);
     }
