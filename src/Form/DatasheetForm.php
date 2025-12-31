@@ -90,6 +90,25 @@ class DatasheetForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    // If school context is unavailable (ie not passed via ?sid), fail.
+    if ($this->entity->bundle() === 'school') {
+      $request = \Drupal::request();
+      $sid = $request->query->get('sid');
+
+      if (!$sid) {
+        $this->messenger()->addError($this->t('Invalid access: school context is required. This form must be accessed from a school page.'));
+        return ['#markup' => ''];
+      }
+    }
+
+    $form = parent::buildForm($form, $form_state);
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
   }
