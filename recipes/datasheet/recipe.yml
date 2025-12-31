@@ -1,0 +1,78 @@
+name: 'Ascend datasheet setup'
+description: 'Ascend datasheet setup recipe - installs modules and sets up config'
+type: 'Content type?'
+recipes:
+  # Can't depend on other recipes outside of this dir or core!
+install:
+  - ascend_datasheet
+  - eva
+config:
+  strict: true
+  import:
+    ascend_school: '*'
+    ascend_audit: '*'
+    ascend_ap: '*'
+  actions:
+    form_mode_manager.links:
+      simpleConfigUpdate:
+        local_tasks.audit:
+          position: primary
+        local_tasks.ap:
+          position: primary
+    content_lock.settings:
+      simpleConfigUpdate:
+        types.ap:
+          '*': '*'
+        types.audit:
+          '*': '*'
+        types.school:
+          '*': '*'
+        form_op_lock.ap:
+          mode: 0
+          values: {  }
+        form_op_lock.audit:
+          mode: 0
+          values: {  }
+        form_op_lock.school:
+          mode: 0
+          values: {  }
+    core.entity_form_display.taxonomy_term.category.default:
+      setComponent:
+        name: ascend_standards
+        options:
+          type: cshs
+          weight: 7
+          region: content
+          settings:
+            save_lineage: false
+            force_deepest: true
+            parent: null
+            level_labels: 'Standard, Aspect'
+            hierarchy_depth: 0
+            required_depth: 0
+            none_label: '- Please select -'
+          third_party_settings: {  }
+    core.entity_form_display.user.user.default:
+      setComponent:
+        name: comment_notify_settings
+        options:
+          weight: 4
+          region: content
+          settings: {  }
+          third_party_settings: {  }
+    user.role.user_manager:
+      grantPermissions:
+        - 'assign auditor role'
+        - 'assign adviser role'
+        - 'assign audit_manager role'
+        - 'access profile overview'
+        - 'access user profiles'
+        - 'view user email addresses'
+    user.role.site_manager:
+      grantPermissions:
+        - 'create terms in cluster'
+        - 'create terms in rating'
+        - 'create terms in standards'
+        - 'edit terms in cluster'
+        - 'edit terms in rating'
+        - 'edit terms in standards'
