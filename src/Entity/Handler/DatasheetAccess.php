@@ -2,8 +2,6 @@
 
 namespace Drupal\ascend_datasheet\Entity\Handler;
 
-use Drupal\ascend_audit\Entity\Handler\AuditorSchoolLinkTrait;
-use Drupal\ascend_school\Entity\SchoolInterface;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -13,8 +11,6 @@ use Drupal\Core\Access\AccessResult;
  * Provides the access handler for the Datasheet entity.
  */
 class DatasheetAccess extends EntityAccessControlHandler {
-
-  use AuditorSchoolLinkTrait;
 
   /**
    * {@inheritdoc}
@@ -45,12 +41,7 @@ class DatasheetAccess extends EntityAccessControlHandler {
       }
 
       // Check if the auditor is assigned to this school.
-      $auditor_ids = array_column(
-        $school->get('ascend_sch_auditor')->getValue(),
-        'target_id'
-      );
-
-      if (!in_array($account->id(), $auditor_ids)) {
+      if (!$this->isAuditorAssignedToSchool($school, $account)) {
         return AccessResult::forbidden('Auditor cannot create a datasheet here, as they are not assigned to this school')
           ->cachePerUser()
           ->addCacheableDependency($school);
@@ -59,7 +50,6 @@ class DatasheetAccess extends EntityAccessControlHandler {
 
     return parent::createAccess($entity_bundle, $account, $context, $return_as_object);
   }
-
 
   /**
    * {@inheritdoc}
@@ -83,41 +73,41 @@ class DatasheetAccess extends EntityAccessControlHandler {
     }
 
     // Check operations that require school-based access control.
-    if (in_array($operation, ['view', 'update'])) {
+    if ($entity->bundle() === 'school' && in_array($operation, ['view', 'update'])) {
 
-      $permission = match($operation) {
-        'view' => 'view datasheet',
-        'update' => 'update any datasheet',
+      $permission = match ($operation) {
+        'view' => 'view school datasheet',
+        'update' => 'update any school datasheet',
       };
 
-      // Global permissions first.
+      // Global permissions first - these override school-based access.
       if ($account->hasPermission($permission)) {
         return AccessResult::allowed()->cachePerPermissions();
       }
 
       // Check if user is an auditor.
-      if (in_array('auditor', $account->getRoles())) {
+      if ($account->hasRole('auditor')) {
 
-        // Check (below) if user has working access to the school.
-        $auditor_linked = $this->isAuditorSchoolLink($entity, $account); //don't use this fn
+        // Get the school from the datasheet entity.
+        $school = $entity->get('ascend_ds_school')->entity;
 
-        if (!$auditor_linked) {
+        if (!$school) {
           return AccessResult::forbidden()
             ->cachePerPermissions()
             ->cachePerUser()
             ->addCacheableDependency($entity);
         }
 
-        // For view operation, check "view own" permission.
-        if ($operation === 'view' && $account->hasPermission('view own datasheet')) {
-          return AccessResult::allowed()
+        // Check if auditor is assigned to the school.
+        if (!$this->isAuditorAssignedToSchool($school, $account)) {
+          return AccessResult::forbidden()
             ->cachePerPermissions()
             ->cachePerUser()
             ->addCacheableDependency($entity);
         }
 
-        // For update operation, check "update own" permission.
-        if ($operation === 'update' && $account->hasPermission('update own datasheet')) {
+        // Auditor has access to this school, now check "own" permissions.
+        if ($operation === 'update' && $account->hasPermission('update own school datasheet')) {
           return AccessResult::allowed()
             ->cachePerPermissions()
             ->cachePerUser()
@@ -128,7 +118,33 @@ class DatasheetAccess extends EntityAccessControlHandler {
       return AccessResult::forbidden()->cachePerPermissions();
     }
 
-    // For all other operations, use parent EntityAccessControlHandler logic
+    // For all other operations, use parent EntityAccessControlHandler logic.
     return parent::checkAccess($entity, $operation, $account);
+  }
+
+  /**
+   * Check if an auditor is assigned to a school.
+   * We could have used the Audit trait to do this but as this work
+   * package is separate let's just keep it local.
+   *
+   * @param \Drupal\ascend_school\Entity\SchoolInterface $school
+   *   The school entity.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The user account to check.
+   *
+   * @return bool
+   *   TRUE if the auditor is assigned to the school, FALSE otherwise.
+   */
+  protected function isAuditorAssignedToSchool($school, AccountInterface $account): bool {
+    if (empty($school)) {
+      return FALSE;
+    }
+
+    $auditor_ids = array_column(
+      $school->get('ascend_sch_auditor')->getValue(),
+      'target_id'
+    );
+
+    return in_array($account->id(), $auditor_ids);
   }
 }
