@@ -91,8 +91,8 @@ class DatasheetForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // If school context is unavailable (ie not passed via ?sid), fail.
-    if ($this->entity->bundle() === 'school') {
+    // Fail if school context is unavailable (ie not passed via ?sid).
+    if ($this->entity->bundle() === 'school' && $this->entity->isNew()) {
       $request = \Drupal::request();
       $sid = $request->query->get('sid');
 
