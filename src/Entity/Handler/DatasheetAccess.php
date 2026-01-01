@@ -108,6 +108,18 @@ class DatasheetAccess extends EntityAccessControlHandler {
 
         // Auditor has access to this school, now check "own" permissions.
         if ($operation === 'update' && $account->hasPermission('update own school datasheet')) {
+          // Check if datasheet is from the current academic year.
+          $working_year = \Drupal::service('Drupal\ascend_audit\Services\AuditYearService')->getWorkingYear();
+          $datasheet_year = $entity->get('year')->value;
+
+          // No access if the sheet is not from this academic year.
+          if ($datasheet_year != $working_year) {
+            return AccessResult::forbidden('Cannot update datasheets from previous academic years')
+              ->cachePerPermissions()
+              ->cachePerUser()
+              ->addCacheableDependency($entity);
+          }
+
           return AccessResult::allowed()
             ->cachePerPermissions()
             ->cachePerUser()
