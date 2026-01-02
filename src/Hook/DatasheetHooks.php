@@ -4,6 +4,7 @@ namespace Drupal\ascend_datasheet\Hook;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\views\ViewExecutable;
 
 /**
  * Contains hook implementations for the Ascend datasheet module.
@@ -32,26 +33,15 @@ class DatasheetHooks {
   }
 
   /**
-   * Implements hook_entity_bundle_info().
+   * Implements hook_views_pre_render().
    */
-  // #[Hook('entity_bundle_info')]
-  // public function entityBundleInfo() {
-  //   $bundles['datasheet'] = [
-  //     'national' => [
-  //       'label' => t('National'),
-  //       'description' => t('Represents a National datasheet.')
-  //     ],
-  //     'local' => [
-  //       'label' => t('Local'),
-  //       'description' => t('Represents a Local datasheet.')
-  //     ],
-  //     'school' => [
-  //       'label' => t('School'),
-  //       'description' => t('Represents a School datasheet.')
-  //     ],
-  //   ];
-
-  //   return $bundles;
-  // }
+  #[Hook('views_pre_render')]
+  public function viewsPreRender(ViewExecutable $view): void {
+    // Add context to the datasheets view.
+    if ($view->id() == 'school_datasheets') {
+      $view->element['#cache']['contexts'][] = 'user';
+      $view->element['#cache']['contexts'][] = 'route';
+    }
+  }
 
 }
