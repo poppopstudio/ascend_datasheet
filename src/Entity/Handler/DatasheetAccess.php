@@ -18,33 +18,36 @@ class DatasheetAccess extends EntityAccessControlHandler {
   public function createAccess($entity_bundle = NULL, AccountInterface $account = NULL, array $context = [], $return_as_object = FALSE) {
     $account = $this->prepareUser($account);
 
-    // Restrict auditors from adding sheets to schools they're not assigned to.
     if ($entity_bundle === 'school' && $account->hasRole('auditor')) {
 
-      // Get school ID from query parameter.
-      $sid = \Drupal::request()->query->get('sid');
-
-      if (!$sid) {
-        // No school context - deny access for auditors.
-        return AccessResult::forbidden("Cannot create datasheet without context - you must create school datasheets via the school's page.")
-          ->cachePerUser();
-      }
-
-      // Load the school entity.
-      $school = \Drupal::entityTypeManager()
-        ->getStorage('school')
-        ->load($sid);
+      $route_match = \Drupal::routeMatch();
+      $school = $route_match->getParameter('school');
 
       if (!$school) {
-        return AccessResult::forbidden('Invalid school')
-          ->cachePerUser();
+        $sid = \Drupal::request()->query->get('sid');
+        if ($sid) {
+          $school = \Drupal::entityTypeManager()
+            ->getStorage('school')
+            ->load($sid);
+        }
       }
 
-      // Check if the auditor is assigned to this school.
+      /**
+       * Return values here are janky because the VAB contrib module doesn't
+       * respect returning access objects rather than booleans.
+       */
+      if (!$school) {
+        $result = AccessResult::forbidden("Cannot create datasheet without context")
+          ->cachePerUser();
+        return $return_as_object ? $result : $result->isAllowed();
+      }
+
       if (!$this->isAuditorAssignedToSchool($school, $account)) {
-        return AccessResult::forbidden('Auditor cannot create a datasheet here, as they are not assigned to this school')
+        $result = AccessResult::forbidden('Auditor not assigned')
           ->cachePerUser()
-          ->addCacheableDependency($school);
+          ->addCacheableDependency($school)
+          ->addCacheContexts(['route']);
+        return $return_as_object ? $result : $result->isAllowed();
       }
     }
 
@@ -76,7 +79,7 @@ class DatasheetAccess extends EntityAccessControlHandler {
     if ($entity->bundle() === 'school' && in_array($operation, ['view', 'update'])) {
 
       $permission = match ($operation) {
-        'view' => 'view school datasheet',
+        'view' => 'view datasheet', // Not 'school' because ds' are not hidden.
         'update' => 'update any school datasheet',
       };
 
@@ -148,9 +151,6 @@ class DatasheetAccess extends EntityAccessControlHandler {
    *   TRUE if the auditor is assigned to the school, FALSE otherwise.
    */
   protected function isAuditorAssignedToSchool($school, AccountInterface $account): bool {
-    if (empty($school)) {
-      return FALSE;
-    }
 
     $auditor_ids = array_column(
       $school->get('ascend_sch_auditor')->getValue(),
