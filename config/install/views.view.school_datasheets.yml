@@ -357,40 +357,7 @@ display:
             format: basic_html
           tokenize: false
       sorts: {  }
-      arguments:
-        ascend_ds_school_target_id:
-          id: ascend_ds_school_target_id
-          table: datasheet__ascend_ds_school
-          field: ascend_ds_school_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: entity_target_id
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: node
-          default_argument_options: {  }
-          summary_options:
-            base_path: ''
-            count: true
-            override: false
-            items_per_page: 25
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          break_phrase: false
-          not: false
+      arguments: {  }
       filters:
         status:
           id: status
@@ -468,17 +435,53 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - user.permissions
       tags: {  }
   entity_view_1:
     id: entity_view_1
-    display_title: EVA
+    display_title: School
     display_plugin: entity_view
     position: 1
     display_options:
       title: Datasheets
+      arguments:
+        ascend_ds_school_target_id:
+          id: ascend_ds_school_target_id
+          table: datasheet__ascend_ds_school
+          field: ascend_ds_school_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: entity_target_id
+          default_action: default
+          exception:
+            value: ''
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: node
+          default_argument_options: {  }
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+      defaults:
+        arguments: false
+      display_description: 'List of datasheets on a school'
       display_extenders: {  }
       entity_type: school
       bundles:
