@@ -896,7 +896,7 @@ display:
     display_plugin: entity_view
     position: 1
     display_options:
-      title: 'Annual Primary stage comparison'
+      title: 'Primary stage - annual categories comparison'
       arguments:
         year:
           id: year
@@ -933,8 +933,194 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+      filters:
+        status:
+          id: status
+          table: datasheet
+          field: status
+          entity_type: datasheet
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        stage:
+          id: stage
+          table: datasheet
+          field: stage
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: datasheet
+          entity_field: stage
+          plugin_id: string
+          operator: '='
+          value: primary
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        type:
+          id: type
+          table: datasheet
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: datasheet
+          entity_field: type
+          plugin_id: string
+          operator: '='
+          value: national
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        type_1:
+          id: type_1
+          table: datasheet
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: datasheet
+          entity_field: type
+          plugin_id: string
+          operator: '='
+          value: local
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        ascend_ds_school_target_id:
+          id: ascend_ds_school_target_id
+          table: datasheet__ascend_ds_school
+          field: ascend_ds_school_target_id
+          relationship: none
+          group_type: group
+          admin_label: 'School (Refer to code in ascend_datasheet.module file!)'
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: SCHOOL
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+          2: OR
       defaults:
         arguments: false
+        filters: false
+        filter_groups: false
       display_description: ''
       display_extenders: {  }
       entity_type: school
@@ -965,7 +1151,7 @@ display:
     display_plugin: entity_view
     position: 1
     display_options:
-      title: 'Annual Secondary stage comparison'
+      title: 'Secondary stage - annual categories comparison'
       arguments:
         year:
           id: year
@@ -1143,7 +1329,7 @@ display:
           field: ascend_ds_school_target_id
           relationship: none
           group_type: group
-          admin_label: 'School (Refer to code in ascend_datasheet module file!)'
+          admin_label: 'School (Refer to code in ascend_datasheet.module file!)'
           plugin_id: numeric
           operator: '='
           value:
@@ -1198,7 +1384,7 @@ display:
       show_title: true
       argument_mode: null
       default_argument: null
-      eva_hide_empty: true
+      eva_hide_empty: false
     cache_metadata:
       max-age: -1
       contexts:
