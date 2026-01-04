@@ -23,6 +23,15 @@ class DatasheetViewsData extends EntityViewsData {
       ],
     ];
 
+    // Register the Overall Calculation field.
+    $data['datasheet']['overall_calculation'] = [
+      'title' => $this->t('Datasheet overall calculation'),
+      'help' => $this->t('Calculates SEN Support + EHC Plan'),
+      'field' => [
+        'id' => 'datasheet_overall_calculation',
+      ],
+    ];
+
     return $data;
   }
 

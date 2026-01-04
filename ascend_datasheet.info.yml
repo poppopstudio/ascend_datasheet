@@ -46,3 +46,4 @@ config_devel:
   - views.view.datasheets_content
   - views.view.school_datasheets
   - views.view.datasheets_school_categories_report
+  - views.view.datasheet_school_proportion_report

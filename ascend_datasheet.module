@@ -73,7 +73,10 @@ function ascend_datasheet_entity_bundle_info() {
  * Implements hook_views_query_alter().
  */
 function ascend_datasheet_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
-  if ($view->id() !== 'datasheets_school_report') {
+
+  $affected_views = ['datasheets_school_categories_report', 'datasheets_school_proportion_report'];
+
+  if (!in_array($view->id(), $affected_views)) {
     return;
   }
 
@@ -108,8 +111,6 @@ function ascend_datasheet_entity_view_alter(array &$build, EntityInterface $enti
   }
 
   $school_id = $entity->id();
-
-  // Get current year.
   $working_year = \Drupal::service('Drupal\ascend_audit\Services\AuditYearService')->getWorkingYear();
 
   $storage = \Drupal::entityTypeManager()->getStorage('datasheet');
