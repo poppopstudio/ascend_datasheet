@@ -115,13 +115,19 @@ function ascend_datasheet_entity_view_alter(array &$build, EntityInterface $enti
 
   $storage = \Drupal::entityTypeManager()->getStorage('datasheet');
 
-  // Map stages to their EVA view display keys.
+  // Map stages to their EVA view display keys for BOTH views.
   $stage_displays = [
-    'primary' => 'datasheets_school_categories_report_entity_view_1',
-    'secondary' => 'datasheets_school_categories_report_entity_view_2',
+    'primary' => [
+      'datasheets_school_categories_report_entity_view_1',
+      'datasheets_school_proportion_report_entity_view_1',
+    ],
+    'secondary' => [
+      'datasheets_school_categories_report_entity_view_2',
+      'datasheets_school_proportion_report_entity_view_2',
+    ],
   ];
 
-  foreach ($stage_displays as $stage => $display_key) {
+  foreach ($stage_displays as $stage => $display_keys) {
     // Check if school has data for this stage.
     $count = $storage->getQuery()
       ->accessCheck(FALSE)
@@ -132,13 +138,16 @@ function ascend_datasheet_entity_view_alter(array &$build, EntityInterface $enti
       ->count()
       ->execute();
 
-    // Hide the EVA view display if no school data exists.
-    if ($count == 0 && isset($build[$display_key])) {
-      unset($build[$display_key]);
+    // Hide both view displays for stage if no datasheet exists (for this year).
+    if ($count == 0) {
+      foreach ($display_keys as $display_key) {
+        if (isset($build[$display_key])) {
+          unset($build[$display_key]);
+        }
+      }
     }
   }
 }
-
 
 /**
  * These two functions were required in order to add compatibility with
