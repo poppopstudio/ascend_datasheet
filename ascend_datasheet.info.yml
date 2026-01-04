@@ -45,3 +45,4 @@ config_devel:
   - field.storage.datasheet.ascend_ds_spld
   - views.view.datasheets_content
   - views.view.school_datasheets
+  - views.view.datasheets_school_categories_report
