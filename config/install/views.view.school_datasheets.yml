@@ -356,7 +356,22 @@ display:
             value: '<p>No datasheets available</p>'
             format: basic_html
           tokenize: false
-      sorts: {  }
+      sorts:
+        year:
+          id: year
+          table: datasheet
+          field: year
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: datasheet
+          entity_field: year
+          plugin_id: standard
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments: {  }
       filters:
         status:
