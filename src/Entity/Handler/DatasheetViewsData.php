@@ -32,6 +32,15 @@ class DatasheetViewsData extends EntityViewsData {
       ],
     ];
 
+    // Add a custom sort field for datasheet type ordering.
+    $data['datasheet']['type_sort_order'] = [
+      'title' => $this->t('Type Sort Order'),
+      'help' => $this->t('Sorts by National, Local, School order'),
+      'sort' => [
+        'id' => 'datasheet_type_sort',
+      ],
+    ];
+
     return $data;
   }
 
