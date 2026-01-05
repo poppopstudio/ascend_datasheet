@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ascend_school
+id: school.datasheet_only
+label: 'Datasheet only'
+description: 'Just show the datasheet views, for use on the summary report.'
+targetEntityType: school
+cache: true

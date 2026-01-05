@@ -1,0 +1,85 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.school.datasheet_only
+    - field.field.school.school.ascend_sch_auditor
+    - field.field.school.school.ascend_sch_cluster
+    - field.field.school.school.ascend_sch_dfe
+  module:
+    - ascend_school
+    - field_group
+third_party_settings:
+  field_group:
+    group_details:
+      children:
+        - ascend_sch_auditor
+        - ascend_sch_cluster
+        - ascend_sch_dfe
+      label: Details
+      parent_name: ''
+      region: hidden
+      weight: 13
+      format_type: field_group_table
+      format_settings:
+        label_visibility: '3'
+        desc: ''
+        desc_visibility: '2'
+        first_column: ''
+        second_column: ''
+        empty_label_behavior: '1'
+        empty_field_placeholder: ''
+        hide_table_if_empty: '1'
+        id: ''
+        classes: ''
+        show_empty_fields: 0
+        label_as_html: 0
+        table_row_striping: 0
+        always_show_field_label: 0
+        always_show_field_value: 0
+id: school.school.datasheet_only
+targetEntityType: school
+bundle: school
+mode: datasheet_only
+content:
+  ascend_sch_stage:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  datasheets_school_categories_report_entity_view_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  datasheets_school_categories_report_entity_view_2:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  datasheets_school_proportion_report_entity_view_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  datasheets_school_proportion_report_entity_view_2:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  ascend_sch_auditor: true
+  ascend_sch_cluster: true
+  ascend_sch_dfe: true
+  changed: true
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  school_datasheets_entity_view_1: true
+  search_api_excerpt: true
+  title: true
+  uid: true

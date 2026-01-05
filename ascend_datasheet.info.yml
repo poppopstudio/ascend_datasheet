@@ -13,6 +13,8 @@ config_devel:
   - core.entity_view_display.datasheet.local.default
   - core.entity_view_display.datasheet.national.default
   - core.entity_view_display.datasheet.school.default
+  - core.entity_view_display.school.school.datasheet_only
+  - core.entity_view_mode.school.datasheet_only
   - field.field.datasheet.local.ascend_ds_asd
   - field.field.datasheet.local.ascend_ds_ehc
   - field.field.datasheet.local.ascend_ds_mld
@@ -46,4 +48,4 @@ config_devel:
   - views.view.datasheets_content
   - views.view.school_datasheets
   - views.view.datasheets_school_categories_report
-  - views.view.datasheet_school_proportion_report
+  - views.view.datasheets_school_proportion_report
