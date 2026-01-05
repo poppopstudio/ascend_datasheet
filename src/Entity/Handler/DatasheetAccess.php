@@ -20,6 +20,10 @@ class DatasheetAccess extends EntityAccessControlHandler {
 
     if ($entity_bundle === 'school' && $account->hasRole('auditor')) {
 
+      /**
+       * This lot determines the school ID by one of two ways depending on
+       * the page context. School ID is either in ?sid=ID or the url.
+       */
       $route_match = \Drupal::routeMatch();
       $school = $route_match->getParameter('school');
 
