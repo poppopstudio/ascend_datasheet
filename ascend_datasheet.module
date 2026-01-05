@@ -105,10 +105,7 @@ function ascend_datasheet_views_query_alter(ViewExecutable $view, QueryPluginBas
 /**
  * Implements hook_entity_view_alter().
  */
-function ascend_datasheet_entity_view_alter(array &$build, EntityInterface $entity, $display) {
-  if ($entity->getEntityTypeId() !== 'school') {
-    return;
-  }
+function ascend_datasheet_school_view_alter(array &$build, EntityInterface $entity, $display) {
 
   $school_id = $entity->id();
   $working_year = \Drupal::service('Drupal\ascend_audit\Services\AuditYearService')->getWorkingYear();
@@ -138,7 +135,7 @@ function ascend_datasheet_entity_view_alter(array &$build, EntityInterface $enti
       ->count()
       ->execute();
 
-    // Hide both view displays for stage if no datasheet exists (for this year).
+    // Hide both view displays for this stage if no datasheet exists (this year).
     if ($count == 0) {
       foreach ($display_keys as $display_key) {
         if (isset($build[$display_key])) {
