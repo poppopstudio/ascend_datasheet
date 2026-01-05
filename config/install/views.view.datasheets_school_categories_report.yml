@@ -691,7 +691,7 @@ display:
             ascend_ds_semh: ascend_ds_semh
             ascend_ds_slcn: ascend_ds_slcn
             ascend_ds_asd: ascend_ds_asd
-          default: type
+          default: '-1'
           info:
             type:
               sortable: false
