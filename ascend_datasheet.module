@@ -6,6 +6,7 @@
  */
 
 use Drupal\ascend_datasheet\Hook\DatasheetHooks;
+use Drupal\ascend_school\Entity\School;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\LegacyHook;
@@ -80,15 +81,11 @@ function ascend_datasheet_views_query_alter(ViewExecutable $view, QueryPluginBas
     return;
   }
 
-  // Get school from route
-  $route_match = \Drupal::routeMatch();
-  $school = $route_match->getParameter('school');
+  $school = $view->host_entity;
 
-  if (!$school) {
+  if (!$school instanceof School) {
     return;
   }
-
-  $school_id = is_object($school) ? $school->id() : $school;
 
   // Find and update the school filter with the actual school ID
   foreach ($query->where as &$where_group) {
@@ -96,7 +93,7 @@ function ascend_datasheet_views_query_alter(ViewExecutable $view, QueryPluginBas
       if (isset($condition['field']) &&
           strpos($condition['field'], 'ascend_ds_school_target_id') !== FALSE &&
           $condition['value'] === 'SCHOOL') {
-        $condition['value'] = $school_id;
+        $condition['value'] = $school->id();
       }
     }
   }

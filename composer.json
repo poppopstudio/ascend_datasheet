@@ -9,5 +9,9 @@
             "homepage": "https://github.com/poppopstudio/ascend_datasheet",
             "role": "Maintainer"
         }
-    ]
+    ],
+    "require": {
+        "drupal/core": "^10.5",
+        "drupal/eva": "^3.1"
+    }
 }
