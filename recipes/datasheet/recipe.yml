@@ -12,20 +12,6 @@ config:
     core.entity_view_display.datasheet.school.default:
       setComponents:
         -
-          name: datasheets_school_categories_report_entity_view_1
-          options:
-            settings: {  }
-            third_party_settings: {  }
-            weight: 3
-            region: content
-        -
-          name: datasheets_school_categories_report_entity_view_2
-          options:
-            settings: {  }
-            third_party_settings: {  }
-            weight: 5
-            region: content
-        -
           name: datasheets_school_proportion_report_entity_view_1
           options:
             settings: {  }
@@ -33,11 +19,25 @@ config:
             weight: 2
             region: content
         -
+          name: datasheets_school_categories_report_entity_view_1
+          options:
+            settings: {  }
+            third_party_settings: {  }
+            weight: 3
+            region: content
+        -
           name: datasheets_school_proportion_report_entity_view_2
           options:
             settings: {  }
             third_party_settings: {  }
             weight: 4
+            region: content
+        -
+          name: datasheets_school_categories_report_entity_view_2
+          options:
+            settings: {  }
+            third_party_settings: {  }
+            weight: 5
             region: content
         -
           name: school_datasheets_entity_view_1
