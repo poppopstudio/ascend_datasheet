@@ -16,35 +16,35 @@ config:
           options:
             settings: {  }
             third_party_settings: {  }
-            weight: 2
+            weight: 10
             region: content
         -
           name: datasheets_school_categories_report_entity_view_1
           options:
             settings: {  }
             third_party_settings: {  }
-            weight: 3
+            weight: 12
             region: content
         -
           name: datasheets_school_proportion_report_entity_view_2
           options:
             settings: {  }
             third_party_settings: {  }
-            weight: 4
+            weight: 14
             region: content
         -
           name: datasheets_school_categories_report_entity_view_2
           options:
             settings: {  }
             third_party_settings: {  }
-            weight: 5
+            weight: 16
             region: content
         -
           name: school_datasheets_entity_view_1
           options:
             settings: {  }
             third_party_settings: {  }
-            weight: 6
+            weight: 18
             region: content
     user.role.authenticated:
       grantPermissions:
