@@ -13,6 +13,10 @@ Recipe/module to enable datasheet functionality for Ascend.
 },
 ```
 
+### Install the codebase
+
+`composer require poppopstudio/ascend_datasheet`
+
 ### Add the EVA patch
 
 ```composer

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains hook implementations for the Ascend datasheet module.
+ * Ascend datasheet module.
  */
 
 use Drupal\ascend_datasheet\Hook\DatasheetHooks;
